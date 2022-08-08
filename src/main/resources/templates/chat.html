@@ -46,6 +46,8 @@
 
 </head>
 <body>
+<button th:unless="${isFreeze}" class="btn btn-primary" id="true" onclick="freez(this.id)">채팅창 얼리기</button>
+<button th:if="${isFreeze}" class="btn btn-primary" id="false" onclick="freez(this.id)">채팅창 녹이기</button>
 <div class="container" id="te" >
 <div class="d-inline-block scrollBar"  id="chatbox"  style="overflow-y:scroll; height: 500px; width: 70%;">
 
@@ -65,6 +67,9 @@
 </div>
 </body>
 <script>
+  function freez(stat){
+    stompClient.send("/pub/freez", {}, JSON.stringify(stat));
+  }
   function test(sender){
     var testframe = document.createElement("iframe");
     testframe.id="pop";
@@ -111,7 +116,7 @@
               "<li><a id='li1' class=\"dropdown-item\" name='"+JSON.parse(e.body).messageId+"' onclick='removemessage(this.name)'>채팅삭제</a></li>" +
               "<li><a id='li2' class=\"dropdown-item\" name='"+JSON.parse(e.body).messageId+"' onclick='kickplayer(this.name.split(\"-\")[0])'>강퇴</a></li>" +
               "<li><a id='li3' class=\"dropdown-item\" name='"+JSON.parse(e.body).messageId+"' onclick='endless(this.name.split(\"-\")[0])'>영구정지</a></li>" +
-              "<li><a id='li3' class=\"dropdown-item\" name='"+JSON.parse(e.body).messageId+"' onclick='test(this.name.split(\"-\")[0])'>테스트</a></li></ul>";
+              "<li><a id='li3' class=\"dropdown-item\" name='"+JSON.parse(e.body).messageId+"' onclick='test(this.name.split(\"-\")[0])'>세부사함</a></li></ul>";
 
       chatbox.appendChild(ne);
       document.getElementById("chatbox").scrollTop = document.getElementById("chatbox").scrollHeight;
@@ -134,6 +139,18 @@
     stompClient.subscribe('/sub/channel/kickplayer', function (e) {
       var a = document.getElementById(JSON.parse(e.body).username+"div");
       a.remove();
+
+    });
+
+    stompClient.subscribe('/sub/channel/freez', function (e) {
+      var freez = document.getElementById(JSON.parse(e.body));
+      freez.id = !(JSON.parse(e.body).toString()==='true');
+      if(freez.id === 'true'){
+        freez.innerHTML="채팅창 얼리기";
+      }
+      else{
+        freez.innerHTML="채팅창 녹이기";
+      }
 
     });
 

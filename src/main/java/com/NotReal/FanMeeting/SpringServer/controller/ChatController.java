@@ -23,6 +23,7 @@ import static com.NotReal.FanMeeting.SpringServer.controller.AdminLogin.SESSION_
 public class ChatController {
     private final Connecting connecting;
     private final ChatRepository chatRepository;
+    private final MessageController messageController;
 
     @GetMapping("/chat")
     public String chatGET(@SessionAttribute(name = SESSION_ID, required = false)Member member, Model model){
@@ -32,6 +33,7 @@ public class ChatController {
         }
         model.addAttribute("players",connecting.getConnecting());
         model.addAttribute("userName", member.getUsername());
+        model.addAttribute("isFreeze", messageController.getFreeze());
         return "chat";
     }
     @GetMapping("/pastchat")

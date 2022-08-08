@@ -4,6 +4,7 @@ package com.NotReal.FanMeeting.SpringServer.controller;
 import com.NotReal.FanMeeting.SpringServer.Service.Connecting;
 import com.NotReal.FanMeeting.SpringServer.domain.Member;
 import com.NotReal.FanMeeting.SpringServer.domain.Message;
+import com.NotReal.FanMeeting.SpringServer.domain.Position;
 import com.NotReal.FanMeeting.SpringServer.repository.ChatRepository;
 import com.NotReal.FanMeeting.SpringServer.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +21,16 @@ public class MessageController {
     private final Connecting connecting;
     private final MemberRepository memberRepository;
     private final ChatRepository chatRepository;
+    private boolean freeze = false;
 
     @MessageMapping("/hello")
     public void message(Message message){
         message.setMessageId(message.getSender()+"-"+System.currentTimeMillis());
         Member member = memberRepository.findUserName(message.getSender());
-        chatRepository.save(message, member);
-        simpMessageSendingOperations.convertAndSend("/sub/channel/"+message.getChannelId(), message);
+        if(!freeze || member.getPosition()!= Position.FAN){
+            chatRepository.save(message, member);
+            simpMessageSendingOperations.convertAndSend("/sub/channel/"+message.getChannelId(), message);
+        }
     }
 
     @MessageMapping("/del")
@@ -51,5 +55,15 @@ public class MessageController {
         memberRepository.doFlush(m);
         connecting.removing(member.getUsername());
         simpMessageSendingOperations.convertAndSend("/sub/channel/kickplayer", member);
+    }
+
+    @MessageMapping("/freez")
+    public void freezMessage(boolean tmp){
+        freeze = tmp;
+        simpMessageSendingOperations.convertAndSend("/sub/channel/freez", tmp);
+    }
+
+    public boolean getFreeze(){
+        return freeze;
     }
 }

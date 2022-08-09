@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -101,12 +101,32 @@
     </div>
     <div id="messageList" class="d-inline-block scrollBar" style="overflow-y:scroll; height: 100%; width: 100%;">
       <div th:each="member : ${chatList}"  th:id="${member.messageId}+'div'">
-        <div th:text="${member.text}" style="display: inline"></div>
+        <div th:text="'['+${member.chatTime}+'] '+${member.sender}+' : '+${member.text}" style="display: inline"></div>
       </div>
     </div>
     <div class="modal-footer flex-column border-top-0">
-      <button type="button" class="btn btn-lg btn-primary w-100 mx-0 mb-2">Save changes</button>
-      <button type="button" class="btn btn-lg btn-light w-100 mx-0" data-bs-dismiss="modal">Close</button>
+      <div style="display: inline; text-align : center">
+      <form  style="display: inline" action="/freezechat" method="get" >
+        <input type="text" hidden="hidden" th:name="sender" th:value="${chatList.get(0).sender}">
+      이 유저를 <input type="number" value="0" style="width: 5%" name="hour"> 시간 <input type="number" value="0" style="width: 5%" name="min">분 만큼 채팅을 금지시킵니다.
+      <button type="submit" class="btn btn-lg btn-primary" >정지</button>
+      </form>
+        <form style="display: inline" action="/meltchat" method="get">
+          <input type="text" hidden="hidden" th:name="sender" th:value="${chatList.get(0).sender}">
+          <button type="submit" class="btn btn-lg btn-light " data-bs-dismiss="modal">해제</button>
+        </form>
+    </div>
+      <div style="display: inline; text-align : center">
+        <form style="display: inline; text-align : center" action="/timeban" method="get">
+          <input type="text" hidden="hidden" th:name="sender" th:value="${chatList.get(0).sender}">
+          이 유저를 <input type="number" value="0" style="width: 5%" name="hour"> 시간 <input type="number" value="0" style="width: 5%" name="min">분 만큼 계정을 정지시킵니다.
+          <button type="submit" class="btn btn-lg btn-primary">정지</button>
+        </form>
+        <form style="display: inline" action="/unblock" method="get">
+          <input type="text" hidden="hidden" th:name="sender" th:value="${chatList.get(0).sender}">
+          <button type="submit" class="btn btn-lg btn-light " data-bs-dismiss="modal">해제</button>
+        </form>
+      </div>
     </div>
   </div>
 

@@ -30,7 +30,6 @@ public class AdminLogin {
     }
     @PostMapping("/")
     public String postLogin(@ModelAttribute LoginForm loginForm, HttpServletRequest request){
-        System.out.println(loginForm.getLoginId());
         if(memberRepository.find(loginForm.getLoginId()) != null ){
             Member ge = memberRepository.find(loginForm.getLoginId());
             if(ge.getPassword().equals(loginForm.getLoginPassword()) && ge.getPosition()!= FAN){

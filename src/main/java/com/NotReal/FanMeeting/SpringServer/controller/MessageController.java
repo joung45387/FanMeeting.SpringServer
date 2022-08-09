@@ -27,7 +27,8 @@ public class MessageController {
     public void message(Message message){
         message.setMessageId(message.getSender()+"-"+System.currentTimeMillis());
         Member member = memberRepository.findUserName(message.getSender());
-        if(!freeze || member.getPosition()!= Position.FAN){
+        System.out.println(chatRepository.exMap().containsKey(message.getSender()));
+        if((!freeze && !chatRepository.exMap().containsKey(message.getSender())) || member.getPosition()!= Position.FAN){
             chatRepository.save(message, member);
             simpMessageSendingOperations.convertAndSend("/sub/channel/"+message.getChannelId(), message);
         }

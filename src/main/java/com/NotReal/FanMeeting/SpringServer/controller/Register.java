@@ -30,7 +30,7 @@ public class Register {
     }
     @PostMapping("/regist")
     public String save(@ModelAttribute MemberForm memberForm){
-        System.out.println(memberForm.getId()+""+ memberForm.getPassword()+""+ memberForm.getUsername()+""+ memberForm.getPosition());
+
         memberRepository.save(new Member(memberForm.getId(), memberForm.getPassword(), memberForm.getUsername(), memberForm.getPosition(), LocalDateTime.now()));
         return "redirect:/regist";
     }

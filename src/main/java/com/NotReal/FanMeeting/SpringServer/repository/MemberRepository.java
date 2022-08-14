@@ -30,7 +30,8 @@ public class MemberRepository {
 
     public Member findUserName(String name){
         String jpql= "select m From Member m where m.username ='"+name+"'";
-        Member result = em.createQuery(jpql, Member.class).getSingleResult();
+        List<Member> resultList = em.createQuery(jpql, Member.class).getResultList();
+        Member result = resultList.isEmpty()?null:resultList.get(0);
         return result;
     }
     public void doFlush(Member member){

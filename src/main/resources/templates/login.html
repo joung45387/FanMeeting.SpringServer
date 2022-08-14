@@ -73,7 +73,7 @@
     
 <main class="form-signin">
   <form action="/" method="post" th:object="${loginForm}">
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <h1 class="h3 mb-3 fw-normal">Admin Page sign in</h1>
 
     <div class="form-floating">
       <input class="form-control" id="floatingInput" placeholder="name@example.com" th:field="*{loginId}">
@@ -85,10 +85,11 @@
     </div>
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+    <a href="/regist">회원가입</a>
+    <p class="mt-5 mb-3 text-muted">&copy;NotReal 2022</p>
   </form>
-</main>
 
+</main>
 
     
   </body>

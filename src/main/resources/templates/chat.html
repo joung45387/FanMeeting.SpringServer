@@ -68,8 +68,27 @@
 </div>
 </body>
 <script>
-  function freez(stat){
-    stompClient.send("/pub/freez", {}, JSON.stringify(stat));
+  /*<![CDATA[*/
+  function freez(freez){
+    stompClient.send("/pub/freez", {}, JSON.stringify(freez));
+    if(freez === 'true'){
+      data = {
+        'sender' :'[[${userName}]]',
+        'channelId':'test',
+        'text': '[[${userName}]]'+'가 채팅을 얼렸습니다.'
+      };
+      stompClient.send("/pub/hello", {}, JSON.stringify(data));
+    }
+    else{
+      data = {
+        'sender' :'[[${userName}]]',
+        'channelId':'test',
+        'text': '[[${userName}]]'+'가 채팅을 녹였습니다.'
+      };
+      stompClient.send("/pub/hello", {}, JSON.stringify(data));
+    }
+
+
   }
   function test(sender){
     var testframe = document.createElement("iframe");
@@ -86,6 +105,7 @@
     var delpop = document.getElementById("pop");
     delpop.remove();
   }
+  /*]]>*/
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
@@ -148,23 +168,10 @@
       freez.id = !(JSON.parse(e.body).toString()==='true');
       if(freez.id === 'true'){
         freez.innerHTML="얼리기";
-        data = {
-          'sender' :[[${userName}]],
-          'channelId':'test',
-          'text': [[${userName}]]+'가 채팅을 녹였습니다. 모든 유저가 채팅에 참여가 가능합니다.'
-        };
-        stompClient.send("/pub/hello", {}, JSON.stringify(data));
       }
       else{
         freez.innerHTML="녹이기";
-        data = {
-          'sender' :[[${userName}]],
-          'channelId':'test',
-          'text': [[${userName}]]+'가 채팅을 얼렸습니다. 관리자 이상만 채팅에 참여가 가능합니다.'
-        };
-        stompClient.send("/pub/hello", {}, JSON.stringify(data));
       }
-
     });
 
   }

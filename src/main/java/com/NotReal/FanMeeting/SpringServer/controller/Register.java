@@ -47,6 +47,6 @@ public class Register {
             return "regist/regist";
         }
         memberRepository.save(new Member(memberForm.getId(), memberForm.getPassword(), memberForm.getUsername(), memberForm.getPosition(), LocalDateTime.now()));
-        return "redirect:/regist";
+        return "redirect:/";
     }
 }

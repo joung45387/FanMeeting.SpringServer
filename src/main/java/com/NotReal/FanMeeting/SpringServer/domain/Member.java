@@ -19,6 +19,9 @@ public class Member {
 
     private LocalDateTime blockTime;
 
+    @Enumerated(EnumType.STRING)
+    private RequestPosition requestPermission;
+
     public Member(String id, String password, String username, Position position, LocalDateTime blockTime) {
         this.id = id;
         this.password = password;

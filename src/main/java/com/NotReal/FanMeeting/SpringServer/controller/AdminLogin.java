@@ -23,6 +23,9 @@ public class AdminLogin {
     @GetMapping("/")
     public String getLogin(@SessionAttribute(name = SESSION_ID, required = false) Member login,  Model model){
         if(login !=null){
+            if(login.getPosition()==FAN){
+                return "redirect:/fanpage";
+            }
             return "redirect:/chat";
         }
         model.addAttribute("loginForm", new LoginForm());
@@ -32,13 +35,17 @@ public class AdminLogin {
     public String postLogin(@ModelAttribute LoginForm loginForm, HttpServletRequest request){
         if(memberRepository.find(loginForm.getLoginId()) != null ){
             Member ge = memberRepository.find(loginForm.getLoginId());
-            if(ge.getPassword().equals(loginForm.getLoginPassword()) && ge.getPosition()!= FAN){
+            if(ge.getPassword().equals(loginForm.getLoginPassword())){
                 HttpSession session = request.getSession();
                 session.setAttribute(SESSION_ID, ge);
-                return "redirect:/chat";
+                if(ge.getPosition()!= FAN){
+                    return "redirect:/chat";
+                }
+                return "redirect:/fanpage";
             }
-            else
+            else {
                 return "redirect:/";
+            }
         }
         return "redirect:/";
     }

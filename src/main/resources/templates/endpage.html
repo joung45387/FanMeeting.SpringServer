@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="x()">
+
+</body>
+
+<script>
+  function x(){
+    parent.window.pclose();
+    window.close();
+
+    self.close();
+
+    window.opener = window.location.href; self.close();
+
+    window.open('about:blank', '_self').close();
+  }
+</script>
+</html>

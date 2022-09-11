@@ -2,19 +2,19 @@ package com.NotReal.FanMeeting.SpringServer.controller;
 
 
 import com.NotReal.FanMeeting.SpringServer.Service.Connecting;
-import com.NotReal.FanMeeting.SpringServer.domain.LoginForm;
 import com.NotReal.FanMeeting.SpringServer.domain.Member;
 import com.NotReal.FanMeeting.SpringServer.domain.MessageEntity;
+import com.NotReal.FanMeeting.SpringServer.domain.PermisionUpgrade;
+import com.NotReal.FanMeeting.SpringServer.domain.Position;
 import com.NotReal.FanMeeting.SpringServer.repository.ChatRepository;
 import com.NotReal.FanMeeting.SpringServer.repository.MemberRepository;
+import com.NotReal.FanMeeting.SpringServer.repository.PermisionUpgradeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.jodah.expiringmap.ExpirationPolicy;
-import net.jodah.expiringmap.ExpiringMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.time.LocalDateTime;
@@ -34,7 +34,7 @@ public class ChatController {
 
     @GetMapping("/chat")
     public String chatGET(@SessionAttribute(name = SESSION_ID, required = false)Member member, Model model){
-        if(member.getUsername() == null){
+        if(member == null || member.getPosition()==Position.FAN){
             return "redirect:/";
         }
         model.addAttribute("players",connecting.getConnecting());

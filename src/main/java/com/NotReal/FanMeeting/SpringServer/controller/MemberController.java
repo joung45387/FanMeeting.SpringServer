@@ -65,4 +65,6 @@ public class MemberController {
         memberRepository.doFlush(member);
         return "endpage";
     }
+
+
 }

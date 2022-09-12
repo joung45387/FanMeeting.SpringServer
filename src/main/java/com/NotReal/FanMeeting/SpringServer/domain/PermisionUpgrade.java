@@ -13,7 +13,7 @@ public class PermisionUpgrade {
     @Id
     @GeneratedValue
     private int id;
-    @OneToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = Member.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
     private String message;

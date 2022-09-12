@@ -6,13 +6,6 @@
   <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
 
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
@@ -49,13 +42,12 @@
         <h4 th:if="${info.getRequestPermission() != null}">등업 신청 현황</h4>
         <div th:if="${info.getRequestPermission() != null}" th:text="${info.getRequestPermission()}"></div>
       </div>
-      <div th:if="${info.getRequestPermission()}!= 'refusing'" th:value="${info.getRequestPermission()}"></div>
     </div>
   </main>
 </div>
 <div style="padding: 10px"> </div>
 <div style="text-align: center">
-  <input type="button" class="btn btn-success" th:if="${info.getRequestPermission()==null}" onclick="requst()" value="등업 신청하기">
+  <input type="button" class="btn btn-success" th:if="${info.getRequestPermission()!= T(com.NotReal.FanMeeting.SpringServer.domain.RequestPosition).valueOf('신청중')}" onclick="requst()" value="등업 신청하기">
   <input type="button" class="btn btn-primary" onClick="location.href='/'" value="돌아가기">
 </div>
 </body>

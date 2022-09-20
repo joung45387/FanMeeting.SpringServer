@@ -8,10 +8,12 @@ import com.NotReal.FanMeeting.SpringServer.domain.Position;
 import com.NotReal.FanMeeting.SpringServer.repository.ChatRepository;
 import com.NotReal.FanMeeting.SpringServer.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.parser.ParseException;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
-
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import java.time.LocalDateTime;
 
 @Controller
@@ -66,5 +68,27 @@ public class MessageController {
 
     public boolean getFreeze(){
         return freeze;
+    }
+
+    @MessageMapping("/youtube")
+    public void youtube(String url){
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject obj = (JSONObject) parser.parse(url);
+            String tmp = (String) obj.get("link");
+            tmp = tmp.split("/")[3];
+            if(tmp.contains("?v=")){
+                tmp = tmp.split("v=")[1];
+            }
+            String ans = "https://www.youtube.com/embed/"+tmp+"?fs=1&autoplay=1";
+            simpMessageSendingOperations.convertAndSend("/sub/channel/youtube", ans);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @MessageMapping("/stopyoutube")
+    public void stopyoutube(){
+        String no = "no";
+        simpMessageSendingOperations.convertAndSend("/sub/channel/stopyoutube", no);
     }
 }

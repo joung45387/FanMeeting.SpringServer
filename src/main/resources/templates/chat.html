@@ -71,6 +71,12 @@
   <button th:unless="${isFreeze}" class="btn btn-primary" id="true" onclick="freez(this.id)">얼리기</button>
   <button th:if="${isFreeze}" class="btn btn-primary" id="false" onclick="freez(this.id)">녹이기</button>
 </div>
+<div class="form-inline container" >
+  <input id="link" type="text"  class="form-control" style="width: 78%; display: inline"
+         placeholder="유튜브 주소를 입력하세요" >
+  <button onclick="sendLink()"  class="btn btn-primary">Submit</button>
+  <button onclick="stopytb()"  class="btn btn-primary">종료</button>
+</div>
 </body>
 <script>
   /*<![CDATA[*/
@@ -92,8 +98,16 @@
       };
       stompClient.send("/pub/hello", {}, JSON.stringify(data));
     }
-
-
+  }
+  function sendLink(){
+    data = {
+      'link': document.getElementById("link").value
+    };
+    stompClient.send("/pub/youtube", {}, JSON.stringify(data));
+    document.getElementById("link").value="";
+  }
+  function stopytb(){
+    stompClient.send("/pub/stopyoutube", {});
   }
   function test(sender){
     var testframe = document.createElement("iframe");
@@ -127,7 +141,6 @@
 
 
   function onConnected() {
-// Subscribe to the Public Topic
     console.log("성공");
     stompClient.subscribe('/sub/channel/test', function (e) {
 
@@ -178,7 +191,6 @@
         freez.innerHTML="녹이기";
       }
     });
-
   }
   function onError(error) {
     console.log("error");
@@ -191,7 +203,6 @@
       'channelId':'test',
       'text': document.getElementById("text").value
     };
-    // send(destination,헤더,페이로드)
     stompClient.send("/pub/hello", {}, JSON.stringify(data));
     document.getElementById("text").value="";
   }

@@ -41,8 +41,6 @@
           <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
         </a>
         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-          <li><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
           <li><a class="dropdown-item" href="/myinfo">내 정보</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
@@ -72,14 +70,18 @@
   <button th:if="${isFreeze}" class="btn btn-primary" id="false" onclick="freez(this.id)">녹이기</button>
 </div>
 <div class="form-inline container" >
-  <input id="link" type="text"  class="form-control" style="width: 78%; display: inline"
+  <input id="link" type="text"  class="form-control" style="width: 72%; display: inline"
          placeholder="유튜브 주소를 입력하세요" >
   <button onclick="sendLink()"  class="btn btn-primary">Submit</button>
   <button onclick="stopytb()"  class="btn btn-primary">종료</button>
+  <button onclick="allMute()" class="btn btn-primary" id ="mute">뮤트</button>
 </div>
 </body>
 <script>
   /*<![CDATA[*/
+  function allMute(){
+    stompClient.send("/pub/mute", {}, JSON.stringify(document.getElementById("mute").innerText));
+  }
   function freez(freez){
     stompClient.send("/pub/freez", {}, JSON.stringify(freez));
     if(freez === 'true'){
@@ -190,6 +192,10 @@
       else{
         freez.innerHTML="녹이기";
       }
+    });
+
+    stompClient.subscribe('/sub/channel/mute', function (e) {
+      document.getElementById("mute").innerText = e.body;
     });
   }
   function onError(error) {

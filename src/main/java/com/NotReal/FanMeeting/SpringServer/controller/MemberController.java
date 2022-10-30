@@ -35,6 +35,7 @@ public class MemberController {
         HttpSession session = request.getSession();
         session.invalidate();
         return "redirect:/";
+
     }
 
     @GetMapping("/myinfo")

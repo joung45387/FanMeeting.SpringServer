@@ -91,4 +91,11 @@ public class MessageController {
         String no = "no";
         simpMessageSendingOperations.convertAndSend("/sub/channel/stopyoutube", no);
     }
+
+    @MessageMapping("/mute")
+    public void mute(String s){
+        s = s.substring(1, s.length()-1);
+        String ret = s.equals("뮤트")?"해제":"뮤트";
+        simpMessageSendingOperations.convertAndSend("/sub/channel/mute", ret);
+    }
 }

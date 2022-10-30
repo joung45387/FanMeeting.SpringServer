@@ -23,7 +23,7 @@ public class UnrealLogin {
         if(memberRepository.find(info.getId()) != null ){
             Member ge = memberRepository.find(info.getId());
             if(ge.getPassword().equals(info.getPassword()) && ge.getBlockTime().isBefore(LocalDateTime.now())){
-                return ge.getUsername();
+                return ge.getUsername()+"-"+ge.getPosition();
             }
             else
                 return "bad";

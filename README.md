@@ -45,8 +45,12 @@ Publisher와 Subscriber를 지정하고, Message Broker를 통해 특정 사용�
 
 # 팀원
 * 조성윤 : Client 제작 & 프로젝트 총괄
-  * github : https://github.com/DPRLive
+  * Email : imusun190812@gmail.com
+  * GitHub : https://github.com/DPRLive
 * 이종훈 : Dedicated Server 빌드 & 관리자 웹페이지 Front & Backend 구성
+  * Email : joung45387@gmail.com
   * github : https://github.com/joung45387
 * 차준혁 : 서버 보조 & Level 디자인
+  * Email : ckwnsgur0702@naver.com
   * github : https://github.com/chalaly
+* 장은슬 : VTuber 모델링

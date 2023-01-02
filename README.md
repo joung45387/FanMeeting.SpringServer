@@ -28,6 +28,7 @@
 이를 해결하기 위해 STOMP 방식의 Websocket을 이용하였습니다.<br/>
 Publisher와 Subscriber를 지정하고, Message Broker를 통해 특정 사용자에게만 Message를 전송하는 기능으로 관리자 웹페이지에서의 채팅, 플랫폼 내부에서의 채팅 제한, 플랫폼 내부 Youtube Player에 영상 제어, 음성 채팅 강제 음소거, 채팅 삭제, 특정 이용자 강퇴, 영구정지, 일시 정지 등의 기능을 구현하였다.
 
+<img src="https://user-images.githubusercontent.com/45916379/210212333-5514b97d-7bb2-436c-b62b-a538e95f3a55.gif">
 # 아키텍처
 
 # DB ERD

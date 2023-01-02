@@ -26,13 +26,21 @@
 # 핵심 기능
 관리자 웹페이지는 HTTP통신으로 작동하기 때문에 사용자가 서버로 요청을 보내는 단방향 통신밖에 지원하지 않아 제어가 불가합니다.<br/>
 이를 해결하기 위해 STOMP 방식의 Websocket을 이용하였습니다.<br/>
-Publisher와 Subscriber를 지정하고, Message Broker를 통해 특정 사용자에게만 Message를 전송하는 기능으로 관리자 웹페이지에서의 채팅, 플랫폼 내부에서의 채팅 제한, 플랫폼 내부 Youtube Player에 영상 제어, 음성 채팅 강제 음소거, 채팅 삭제, 특정 이용자 강퇴, 영구정지, 일시 정지 등의 기능을 구현하였다.
+Publisher와 Subscriber를 지정하고, Message Broker를 통해 특정 사용자에게만 Message를 전송하는 기능으로 관리자 웹페이지에서의 채팅, 플랫폼 내부에서의 채팅 제한, 플랫폼 내부 Youtube Player에 영상 제어, 음성 채팅 강제 음소거, 채팅 삭제, 특정 이용자 강퇴, 영구정지, 일시 정지 등의 기능을 구현하였습니다.
 
 <img src="https://user-images.githubusercontent.com/45916379/210212333-5514b97d-7bb2-436c-b62b-a538e95f3a55.gif">
+<img src="https://user-images.githubusercontent.com/45916379/210212539-8ec5d1f1-3a20-4d08-8872-f036f8f324cc.gif">
+
 # 아키텍처
+
+<img src="https://user-images.githubusercontent.com/45916379/210212587-bbe70109-afd0-486b-a433-5b6380e1b3ff.jpg">
 
 # DB ERD
 
+<img src="https://user-images.githubusercontent.com/45916379/210212665-1586eaca-9521-4a49-bb7a-482a0882f9c1.png">
+
 # 응용방안
+
+팬미팅뿐만 아니라 통제가 필요한 일대다 가상공간 미팅이라면 여러 분야에 충분한 활용이 가능합니다
 
 # 팀원

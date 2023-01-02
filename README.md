@@ -33,7 +33,7 @@ Publisher와 Subscriber를 지정하고, Message Broker를 통해 특정 사용�
 
 # 아키텍처
 
-<img src="https://user-images.githubusercontent.com/45916379/210212587-bbe70109-afd0-486b-a433-5b6380e1b3ff.jpg">
+<img src="https://user-images.githubusercontent.com/45916379/210212945-d193d677-4df3-4023-8c2c-1a65a3a96586.png">
 
 # DB ERD
 
@@ -44,3 +44,9 @@ Publisher와 Subscriber를 지정하고, Message Broker를 통해 특정 사용�
 팬미팅뿐만 아니라 통제가 필요한 일대다 가상공간 미팅이라면 여러 분야에 충분한 활용이 가능합니다
 
 # 팀원
+* 조성윤 : Client 제작 & 프로젝트 총괄
+  * github : https://github.com/DPRLive
+* 이종훈 : Dedicated Server 빌드 & 관리자 웹페이지 Front & Backend 구성
+  * github : https://github.com/joung45387
+* 차준혁 : 서버 보조 & Level 디자인
+  * github : https://github.com/chalaly

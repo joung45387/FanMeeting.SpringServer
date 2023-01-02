@@ -7,6 +7,7 @@
 * SpringBoot
 * Spring Data JPA
 * MySQL
+* WebSocket
 
 ## 프론트엔드
 * Thymeleaf
